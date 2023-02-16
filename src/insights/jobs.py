@@ -20,8 +20,4 @@ def get_unique_job_types(path: str) -> List[str]:
 
 
 def filter_by_job_type(jobs: List[Dict], job_type: str) -> List[Dict]:
-    jobs_list = read(jobs)
-    return [
-        {"id": row["id"], "job_type": row["job_type"]}
-        for row in jobs_list if job_type in row["job_type"]
-    ]
+    return [row for row in jobs if row["job_type"] == job_type]
