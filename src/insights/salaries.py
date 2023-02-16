@@ -1,5 +1,5 @@
 from typing import Union, List, Dict
-from src.insights.jobs import read
+from .jobs import read
 
 
 def get_max_salary(path: str) -> int:
@@ -24,35 +24,39 @@ def get_min_salary(path: str) -> int:
     return min_salary
 
 
+def validate_inputs(job: Dict, salary: Union[int, str]) -> None:
+    if "max_salary" not in job or "min_salary" not in job:
+        raise ValueError("values for min_salary and max_salary are required")
+
+    type_salary = type(salary)
+    min_salary, max_salary = job["min_salary"], job["max_salary"]
+
+    if (
+        (type(min_salary) is not int and not str(min_salary).isdigit())
+        or (type(max_salary) is not int and not str(max_salary).isdigit())
+        or (type_salary is not int and type_salary is not str)
+        or (type_salary is str and not salary.isdigit())
+    ):
+        raise ValueError("some values are not valid")
+
+    if int(min_salary) > int(max_salary):
+        raise ValueError("max_salary must be greater than min_salary")
+
+
 def matches_salary_range(job: Dict, salary: Union[int, str]) -> bool:
-    """Checks if a given salary is in the salary range of a given job
+    validate_inputs(job, salary)
 
-    Parameters
-    ----------
-    job : dict
-        The job with `min_salary` and `max_salary` keys
-    salary : int
-        The salary to check if matches with salary range of the job
+    min_salary, max_salary, salaryInt = (
+        int(job["min_salary"]),
+        int(job["max_salary"]),
+        int(salary),
+    )
 
-    Returns
-    -------
-    bool
-        True if the salary is in the salary range of the job, False otherwise
-
-    Raises
-    ------
-    ValueError
-        If `job["min_salary"]` or `job["max_salary"]` doesn't exists
-        If `job["min_salary"]` or `job["max_salary"]` aren't valid integers
-        If `job["min_salary"]` is greather than `job["max_salary"]`
-        If `salary` isn't a valid integer
-    """
-    raise NotImplementedError
+    return min_salary <= salaryInt <= max_salary
 
 
 def filter_by_salary_range(
-    jobs: List[dict],
-    salary: Union[str, int]
+    jobs: List[dict], salary: Union[str, int]
 ) -> List[Dict]:
     """Filters a list of jobs by salary range
 
