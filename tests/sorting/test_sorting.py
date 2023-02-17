@@ -1,5 +1,4 @@
 from src.pre_built.sorting import sort_by
-from src.insights.jobs import read
 import csv
 
 path = "tests/mocks/jobs_with_salaries_and_date_posted.csv"
