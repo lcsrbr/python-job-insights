@@ -3,8 +3,8 @@ from src.pre_built.sorting import sort_by
 mock = [
     {
         "title": "Web developer",
-        "min_salary": "2000",
-        "max_salary": "1000",
+        "min_salary": "1000",
+        "max_salary": "2000",
         "date_posted": "2020-06-07",
     },
     {
