@@ -1,19 +1,40 @@
 from src.pre_built.sorting import sort_by
-import csv
 
-path = "tests/mocks/jobs_with_salaries_and_date_posted.csv"
+mock = [
+    {
+        "title": "Web developer",
+        "min_salary": "2000",
+        "max_salary": "1000",
+        "date_posted": "2020-06-07",
+    },
+    {
+        "title": "Front end developer",
+        "min_salary": "1000",
+        "max_salary": "2000",
+        "date_posted": "2021-06-01",
+    },
+    {
+        "title": "Back end developer",
+        "min_salary": "1000",
+        "max_salary": "3000",
+        "date_posted": "2020-10-09",
+    },
+    {
+        "title": "Full stack end developer",
+        "min_salary": "4000",
+        "max_salary": "8000",
+        "date_posted": "2021-01-01",
+    },
+]
 
 
 def test_sort_by_criteria():
-    with open(path, encoding="utf-8") as file:
-        csv_file = csv.DictReader(file, delimiter=",", quotechar='"')
-        file_convert = [row for row in csv_file]
 
-    sort_by(file_convert, "min_salary")
-    assert file_convert[0]["min_salary"] == "1000"
+    sort_by(mock, "min_salary")
+    assert mock[0]["min_salary"] == "1000"
 
-    sort_by(file_convert, "max_salary")
-    assert file_convert[0]["max_salary"] == "8000"
+    sort_by(mock, "max_salary")
+    assert mock[0]["max_salary"] == "8000"
 
-    sort_by(file_convert, "date_posted")
-    assert file_convert[0]["date_posted"] == "2021-06-01"
+    sort_by(mock, "date_posted")
+    assert mock[0]["date_posted"] == "2021-06-01"
